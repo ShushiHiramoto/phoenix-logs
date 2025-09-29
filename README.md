@@ -1,3 +1,8 @@
+This project is archived, not maintained, and is not compatible with the latest tenhou.net logs downloading license updates.
+
+Please use https://github.com/Apricot-S/houou-logs as recommended alternative.
+
+---
 Tested with **Python 3.8+**
 
 # Logs downloader
