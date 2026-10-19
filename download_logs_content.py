@@ -1,6 +1,7 @@
 """
 Script will load log ids from the database and will download log content
 """
+import os
 import gzip
 import re
 import sqlite3
@@ -118,6 +119,18 @@ class DownloadLogContent(object):
 
             compressed_content = ""
             if not was_error:
+
+                #add logfolder
+                year = log_id[:4]
+                logs_folder = os.path.join("logs",year)
+                os.makedirs(logs_folder, exist_ok=True) 
+
+                # save mjlog file
+                mjlog_path = os.path.join(logs_folder, f"{log_id}.mjlog")
+                with open(mjlog_path, "wb") as f:
+                    f.write(binary_content)
+
+
                 try:
                     compressed_content = gzip.compress(binary_content)
                 except Exception as e:
@@ -140,7 +153,7 @@ class DownloadLogContent(object):
         with connection:
             cursor = connection.cursor()
             cursor.execute(
-                "SELECT log_id FROM logs where is_processed = 0 and was_error = 0 ORDER BY log_id LIMIT ?;",
+                "SELECT log_id FROM logs where is_processed = 0 and was_error = 0 and is_sanma = 0 ORDER BY log_id LIMIT ?;",
                 [self.limit],
             )
             data = cursor.fetchall()

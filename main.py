@@ -1,6 +1,6 @@
 import os
 from datetime import datetime
-from distutils.dir_util import mkpath
+#from distutils.dir_util import mkpath
 from optparse import OptionParser
 
 from download_game_ids import DownloadGameId
@@ -14,11 +14,13 @@ current_year = str(datetime.now().year)
 
 
 def set_up_folders():
-    if not os.path.exists(logs_directory):
-        mkpath(logs_directory)
+    os.makedirs(logs_directory, exist_ok=True)
+    os.makedirs(db_folder, exist_ok=True)
+    #if not os.path.exists(logs_directory):
+        #mkpath(logs_directory)
 
-    if not os.path.exists(db_folder):
-        mkpath(db_folder)
+    #if not os.path.exists(db_folder):
+    #    #mkpath(db_folder)
 
 
 def parse_command_line_arguments():
