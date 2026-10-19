@@ -1,6 +1,6 @@
 __pycache__
+db
 .idea
 *.iml
 temp
 env
-db
